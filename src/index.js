@@ -189,9 +189,9 @@ FunctionTree.prototype.runTree = function() {
   }.bind(this))
 
   this.emit('start', execution, payload)
-  executeTree(execution.staticTree, execution.runFunction, payload, function() {
-    this.emit('end', execution, payload)
-    cb && cb(null, execution, payload)
+  executeTree(execution.staticTree, execution.runFunction, payload, function(result) {
+    this.emit('end', execution, result)
+    cb && cb(null, execution, result)
   }.bind(this))
 };
 

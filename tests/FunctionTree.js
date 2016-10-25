@@ -119,6 +119,21 @@ module.exports['should pass action and payload on action events'] = (test) => {
   test.done()
 }
 
+module.exports['should pass final payload on end event'] = (test) => {
+  const execute = FunctionTree()
+
+  test.expect(1)
+  execute.once('end', (execution, payload) => {
+    test.deepEqual(payload, {foo: 'bar', bar: 'foo'})
+  })
+  execute([
+    () => {
+      return {bar: 'foo'}
+    }
+  ], {foo: 'bar'})
+  test.done()
+}
+
 module.exports['should be able to reuse existing tree'] = (test) => {
   function actionA(context) {
     test.ok(true)
